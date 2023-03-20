@@ -87,8 +87,7 @@ class PGF extends GFFeedAddOn {
 		}
 
 		// Send the order to Petals.
-		$url = 'https://webhook.site/c9310615-beee-4039-9e00-156aa0afa00d';
-		//$url = 'http://www.petalsnetwork.com/wconnect/wc.isa?pbo~&ctype=34&';
+		$url = 'http://www.petalsnetwork.com/wconnect/wc.isa?pbo~&ctype=34&';
 		
 		$sendid = $merge_vars['sendid'] == '' ? '' : '<sendid>'.$merge_vars['sendid'].'</sendid>'."\n";
 		$recipient = $merge_vars['recipient'] == '' ? '' : '<recipient>'.$merge_vars['recipient'].'</recipient>'."\n";
