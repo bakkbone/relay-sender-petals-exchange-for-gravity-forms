@@ -2,29 +2,29 @@
 
 /**
  * @author BAKKBONE Australia
- * @package PgfCore
+ * @package RsPeGfCore
  * @license
 **/
 
-defined("PGF_EXEC") or die("Silence is golden");
+defined("RSPEGF_EXEC") or die("Silence is golden");
 
 GFForms::include_feed_addon_framework();
  
-class PGF extends GFFeedAddOn {
+class RSPEGF extends GFFeedAddOn {
  
-    protected $_version = PGF_VERSION;
+    protected $_version = RSPEGF_VERSION;
     protected $_min_gravityforms_version = '2.5';
     protected $_slug = 'pgf';
     protected $_path = 'relay-sender-petals-exchange-for-gravity-forms/relay-sender-petals-exchange-for-gravity-forms.php';
     protected $_full_path = __FILE__;
-    protected $_title = PGF_TITLE;
-    protected $_short_title = PGF_TITLE_SHORT;
+    protected $_title = RSPEGF_TITLE;
+    protected $_short_title = RSPEGF_TITLE_SHORT;
  
     private static $_instance = null;
  
     public static function get_instance() {
         if ( self::$_instance == null ) {
-            self::$_instance = new PGF();
+            self::$_instance = new RSPEGF();
         }
  
         return self::$_instance;
@@ -48,11 +48,11 @@ class PGF extends GFFeedAddOn {
 	public function plugin_settings_fields() {
 		return array(
 			array(
-				'title'  => esc_html( PGF_SETTINGS_TITLE ),
+				'title'  => esc_html( RSPEGF_SETTINGS_TITLE ),
 				'fields' => array(
 					array(
 						'name'              => 'memberid',
-						'label'             => esc_html( PGF_MID ),
+						'label'             => esc_html( RSPEGF_MID ),
 						'type'              => 'text',
 						'input_type'		=> 'number',
 						'class'             => 'small',
@@ -60,7 +60,7 @@ class PGF extends GFFeedAddOn {
 					),
 					array(
 						'name'              => 'password',
-						'label'             => esc_html( PGF_PASSWORD ),
+						'label'             => esc_html( RSPEGF_PASSWORD ),
 						'type'              => 'text',
 						'input_type'		=> 'password',
 						'class'             => 'small',
@@ -103,9 +103,9 @@ class PGF extends GFFeedAddOn {
 		$message = $merge_vars['message'] == '' ? '' : '<message>'.$merge_vars['message'].'</message>'."\n";
 		$comments = $merge_vars['comments'] == '' ? '' : '<comments>'.$merge_vars['comments'].'</comments>'."\n";
 		$makeup = $merge_vars['makeup'] == '' ? '' : '<makeup>'.$merge_vars['makeup'].'</makeup>'."\n";
-		$deldate = $merge_vars['deldate'] == '' ? '' : '<deldate>'.$merge_vars['deldate'].'</deldate>'."\n";
+		$deldate = $merge_vars['deldate'] == '' ? '' : '<deldate>'.date("Ymd",strtotime($merge_vars['deldate'])).'</deldate>'."\n";
 		$deltime = $merge_vars['deltime'] == '' ? '' : '<deltime>'.$merge_vars['deltime'].'</deltime>'."\n";
-		$tvalue = $merge_vars['tvalue'] == '' ? '' : '<tvalue>'.$merge_vars['tvalue'].'</tvalue>'."\n";
+		$tvalue = $merge_vars['tvalue'] == '' ? '' : '<tvalue>'.number_format($merge_vars['tvalue'],2,".","").'</tvalue>'."\n";
 		$supplier = $merge_vars['supplier'] == '' ? '' : '<supplier>'.$merge_vars['supplier'].'</supplier>'."\n";
 		$productid = $merge_vars['productid'] == '' ? '' : '<productid>'.$merge_vars['productid'].'</productid>'."\n";
 		$contact_name = $merge_vars['contact_name'] == '' ? '' : '<contact_name>'.$merge_vars['contact_name'].'</contact_name>'."\n";
@@ -114,7 +114,7 @@ class PGF extends GFFeedAddOn {
 		$addresstype = $merge_vars['addresstype'] == '' ? '' : '<addresstype>'.$merge_vars['addresstype'].'</addresstype>'."\n";
 		$occasion = $merge_vars['occasion'] == '' ? '' : '<occasion>'.$merge_vars['occasion'].'</occasion>'."\n";
 		$upsell = $merge_vars['upsell'] == '' ? '' : '<upsell>'.$merge_vars['upsell'].'</upsell>'."\n";
-		$upsellAmt = $merge_vars['upsellAmt'] == '' ? '' : '<upsellAmt>'.$merge_vars['upsellAmt'].'</upsellAmt>'."\n";
+		$upsellAmt = $merge_vars['upsellAmt'] == '' ? '' : '<upsellAmt>'.number_format($merge_vars['upsellAmt'],2,".","").'</upsellAmt>'."\n";
 		
 		$body = '<?xml version="1.0" encoding="UTF-8"?>'."\n".'<order>'."\n".$sendid.$recipient.$surname.$address.$town.$state.$postalcode.$crtyname.$crtycode.$phone.$description.$message.$comments.$makeup.$deldate.$deltime.$tvalue.$supplier.$productid.$contact_name.$contact_email.$contact_phone.$addresstype.$occasion.$upsell.$upsellAmt.'</order>';
 		
@@ -131,9 +131,9 @@ class PGF extends GFFeedAddOn {
 		unset($xmlarray['password']);
         $implosion = implode(", ", array_map( function($k, $v) use($symbol) { return $k . $symbol . $v; }, array_keys($xmlarray), array_values($xmlarray) ) );
 		if($xmlarray['type'] == 100){
-			$result = $this->add_note( $entry['id'], PGF_TRANSMIT_SUCCESS.' '.$implosion, 'success' );
+			$result = $this->add_note( $entry['id'], RSPEGF_TRANSMIT_SUCCESS.' '.$implosion, 'success' );
 		} else {
-			$result = $this->add_note( $entry['id'], PGF_TRANSMIT_FAIL.' '.$implosion, 'error' );
+			$result = $this->add_note( $entry['id'], RSPEGF_TRANSMIT_FAIL.' '.$implosion, 'error' );
 		}
 		
 	}
@@ -141,210 +141,210 @@ class PGF extends GFFeedAddOn {
 	public function feed_settings_fields() {
 		return array(
 			array(
-				'title'  => esc_html( PGF_FEED_TITLE ),
+				'title'  => esc_html( RSPEGF_FEED_TITLE ),
 				'fields' => array(
 					array(
-						'label'   => esc_html(PGF_FEED_NAME),
+						'label'   => esc_html(RSPEGF_FEED_NAME),
 						'type'    => 'text',
 						'name'    => 'feedName',
 						'class'   => 'small',
 					),
 					array(
 						'name'      => 'mappedFields',
-						'label'     => esc_html(PGF_MAP_FIELDS),
+						'label'     => esc_html(RSPEGF_MAP_FIELDS),
 						'type'      => 'field_map',
-						'tooltip'	=> PGF_MAP_FIELDS_TOOLTIP,
+						'tooltip'	=> RSPEGF_MAP_FIELDS_TOOLTIP,
 						'field_map' => array(
 							array(
 								'name'		=> 'sendid',
-								'label'		=> PGF_FIELD_SENDID,
+								'label'		=> RSPEGF_FIELD_SENDID,
 								'required'	=> 1,
 								'field_type'=> array('text','number','hidden'),
-								'tooltip'	=> PGF_FIELD_SENDID_TOOLTIP,
+								'tooltip'	=> RSPEGF_FIELD_SENDID_TOOLTIP,
 							),
 							array(
 								'name'		=> 'recipient',
-								'label'		=> PGF_FIELD_RECIPIENT,
+								'label'		=> RSPEGF_FIELD_RECIPIENT,
 								'required'	=> 1,
 								'field_type'=> array('text','name','hidden'),
-								'tooltip'	=> PGF_FIELD_RECIPIENT_TOOLTIP,
+								'tooltip'	=> RSPEGF_FIELD_RECIPIENT_TOOLTIP,
 							),
 							array(
 								'name'		=> 'surname',
-								'label'		=> PGF_FIELD_SURNAME,
+								'label'		=> RSPEGF_FIELD_SURNAME,
 								'required'	=> 1,
 								'field_type'=> array('text','name','hidden'),
-								'tooltip'	=> PGF_FIELD_SURNAME_TOOLTIP,
+								'tooltip'	=> RSPEGF_FIELD_SURNAME_TOOLTIP,
 							),
 							array(
 								'name'		=> 'address',
-								'label'		=> PGF_FIELD_ADDRESS,
+								'label'		=> RSPEGF_FIELD_ADDRESS,
 								'required'	=> 1,
 								'field_type'=> array('text','address','textarea','hidden'),
-								'tooltip'	=> PGF_FIELD_ADDRESS_TOOLTIP,
+								'tooltip'	=> RSPEGF_FIELD_ADDRESS_TOOLTIP,
 							),
 							array(
 								'name'		=> 'town',
-								'label'		=> PGF_FIELD_TOWN,
+								'label'		=> RSPEGF_FIELD_TOWN,
 								'required'	=> 1,
 								'field_type'=> array('text','address','select','hidden'),
-								'tooltip'	=> PGF_FIELD_TOWN_TOOLTIP,
+								'tooltip'	=> RSPEGF_FIELD_TOWN_TOOLTIP,
 							),
 							array(
 								'name'		=> 'state',
-								'label'		=> PGF_FIELD_STATE,
+								'label'		=> RSPEGF_FIELD_STATE,
 								'required'	=> 0,
 								'field_type'=> array('text','address','select','hidden'),
-								'tooltip'	=> PGF_FIELD_STATE_TOOLTIP,
+								'tooltip'	=> RSPEGF_FIELD_STATE_TOOLTIP,
 							),
 							array(
 								'name'		=> 'postalcode',
-								'label'		=> PGF_FIELD_POSTALCODE,
+								'label'		=> RSPEGF_FIELD_POSTALCODE,
 								'required'	=> 1,
 								'field_type'=> array('text','address','number','hidden'),
-								'tooltip'	=> PGF_FIELD_POSTALCODE_TOOLTIP,
+								'tooltip'	=> RSPEGF_FIELD_POSTALCODE_TOOLTIP,
 							),
 							array(
 								'name'		=> 'crtyname',
-								'label'		=> PGF_FIELD_CRTYNAME,
+								'label'		=> RSPEGF_FIELD_CRTYNAME,
 								'required'	=> 1,
 								'field_type'=> array('text','address','select','radio','hidden'),
-								'tooltip'	=> PGF_FIELD_CRTYNAME_TOOLTIP,
+								'tooltip'	=> RSPEGF_FIELD_CRTYNAME_TOOLTIP,
 							),
 							array(
 								'name'		=> 'crtycode',
-								'label'		=> PGF_FIELD_CRTYCODE,
+								'label'		=> RSPEGF_FIELD_CRTYCODE,
 								'required'	=> 1,
 								'field_type'=> array('text','select','radio','hidden'),
-								'tooltip'	=> PGF_FIELD_CRTYCODE_TOOLTIP,
+								'tooltip'	=> RSPEGF_FIELD_CRTYCODE_TOOLTIP,
 							),
 							array(
 								'name'		=> 'phone',
-								'label'		=> PGF_FIELD_PHONE,
+								'label'		=> RSPEGF_FIELD_PHONE,
 								'required'	=> 1,
 								'field_type'=> array('text','number','phone','hidden'),
-								'tooltip'	=> PGF_FIELD_PHONE_TOOLTIP,
+								'tooltip'	=> RSPEGF_FIELD_PHONE_TOOLTIP,
 							),
 							array(
 								'name'		=> 'description',
-								'label'		=> PGF_FIELD_DESCRIPTION,
+								'label'		=> RSPEGF_FIELD_DESCRIPTION,
 								'required'	=> 1,
 								'field_type'=> array('text','textarea','hidden'),
-								'tooltip'	=> PGF_FIELD_DESCRIPTION_TOOLTIP,
+								'tooltip'	=> RSPEGF_FIELD_DESCRIPTION_TOOLTIP,
 							),
 							array(
 								'name'		=> 'message',
-								'label'		=> PGF_FIELD_MESSAGE,
+								'label'		=> RSPEGF_FIELD_MESSAGE,
 								'required'	=> 1,
 								'field_type'=> array('text','textarea','hidden'),
-								'tooltip'	=> PGF_FIELD_MESSAGE_TOOLTIP,
+								'tooltip'	=> RSPEGF_FIELD_MESSAGE_TOOLTIP,
 							),
 							array(
 								'name'		=> 'comments',
-								'label'		=> PGF_FIELD_COMMENTS,
+								'label'		=> RSPEGF_FIELD_COMMENTS,
 								'required'	=> 0,
 								'field_type'=> array('text','textarea','hidden'),
-								'tooltip'	=> PGF_FIELD_COMMENTS_TOOLTIP,
+								'tooltip'	=> RSPEGF_FIELD_COMMENTS_TOOLTIP,
 							),
 							array(
 								'name'		=> 'makeup',
-								'label'		=> PGF_FIELD_MAKEUP,
+								'label'		=> RSPEGF_FIELD_MAKEUP,
 								'required'	=> 0,
 								'field_type'=> array('text','textarea','hidden'),
-								'tooltip'	=> PGF_FIELD_MAKEUP_TOOLTIP,
+								'tooltip'	=> RSPEGF_FIELD_MAKEUP_TOOLTIP,
 							),
 							array(
 								'name'		=> 'deldate',
-								'label'		=> PGF_FIELD_DELDATE,
+								'label'		=> RSPEGF_FIELD_DELDATE,
 								'required'	=> 1,
 								'field_type'=> array('text','date','hidden'),
-								'tooltip'	=> PGF_FIELD_DELDATE_TOOLTIP,
+								'tooltip'	=> RSPEGF_FIELD_DELDATE_TOOLTIP,
 							),
 							array(
 								'name'		=> 'deltime',
-								'label'		=> PGF_FIELD_DELTIME,
+								'label'		=> RSPEGF_FIELD_DELTIME,
 								'required'	=> 0,
 								'field_type'=> array('text','time','hidden'),
-								'tooltip'	=> PGF_FIELD_DELTIME_TOOLTIP,
+								'tooltip'	=> RSPEGF_FIELD_DELTIME_TOOLTIP,
 							),
 							array(
 								'name'		=> 'tvalue',
-								'label'		=> PGF_FIELD_TVALUE,
+								'label'		=> RSPEGF_FIELD_TVALUE,
 								'required'	=> 1,
 								'field_type'=> array('text','number','total','product','hidden'),
-								'tooltip'	=> PGF_FIELD_TVALUE_TOOLTIP,
+								'tooltip'	=> RSPEGF_FIELD_TVALUE_TOOLTIP,
 							),
 							array(
 								'name'		=> 'supplier',
-								'label'		=> PGF_FIELD_SUPPLIER,
+								'label'		=> RSPEGF_FIELD_SUPPLIER,
 								'required'	=> 0,
 								'field_type'=> array('text','number','hidden'),
-								'tooltip'	=> PGF_FIELD_SUPPLIER_TOOLTIP,
+								'tooltip'	=> RSPEGF_FIELD_SUPPLIER_TOOLTIP,
 							),
 							array(
 								'name'		=> 'productid',
-								'label'		=> PGF_FIELD_PRODUCTID,
+								'label'		=> RSPEGF_FIELD_PRODUCTID,
 								'required'	=> 0,
 								'field_type'=> array('text','number','hidden'),
-								'tooltip'	=> PGF_FIELD_PRODUCTID_TOOLTIP,
+								'tooltip'	=> RSPEGF_FIELD_PRODUCTID_TOOLTIP,
 							),
 							array(
 								'name'		=> 'contact_name',
-								'label'		=> PGF_FIELD_CONTACT_NAME,
+								'label'		=> RSPEGF_FIELD_CONTACT_NAME,
 								'required'	=> 0,
 								'field_type'=> array('text','name','hidden'),
-								'tooltip'	=> PGF_FIELD_CONTACT_NAME_TOOLTIP,
+								'tooltip'	=> RSPEGF_FIELD_CONTACT_NAME_TOOLTIP,
 							),
 							array(
 								'name'		=> 'contact_email',
-								'label'		=> PGF_FIELD_CONTACT_EMAIL,
+								'label'		=> RSPEGF_FIELD_CONTACT_EMAIL,
 								'required'	=> 0,
 								'field_type'=> array('text','email','hidden'),
-								'tooltip'	=> PGF_FIELD_CONTACT_EMAIL_TOOLTIP,
+								'tooltip'	=> RSPEGF_FIELD_CONTACT_EMAIL_TOOLTIP,
 							),
 							array(
 								'name'		=> 'contact_phone',
-								'label'		=> PGF_FIELD_CONTACT_PHONE,
+								'label'		=> RSPEGF_FIELD_CONTACT_PHONE,
 								'required'	=> 0,
 								'field_type'=> array('text','number','phone','hidden'),
-								'tooltip'	=> PGF_FIELD_CONTACT_PHONE_TOOLTIP,
+								'tooltip'	=> RSPEGF_FIELD_CONTACT_PHONE_TOOLTIP,
 							),
 							array(
 								'name'		=> 'addresstype',
-								'label'		=> PGF_FIELD_ADDRESSTYPE,
+								'label'		=> RSPEGF_FIELD_ADDRESSTYPE,
 								'required'	=> 0,
 								'field_type'=> array('text','select','radio','hidden'),
-								'tooltip'	=> PGF_FIELD_ADDRESSTYPE_TOOLTIP,
+								'tooltip'	=> RSPEGF_FIELD_ADDRESSTYPE_TOOLTIP,
 							),
 							array(
 								'name'		=> 'occasion',
-								'label'		=> PGF_FIELD_OCCASION,
+								'label'		=> RSPEGF_FIELD_OCCASION,
 								'required'	=> 0,
 								'field_type'=> array('text','select','radio','hidden'),
-								'tooltip'	=> PGF_FIELD_OCCASION_TOOLTIP,
+								'tooltip'	=> RSPEGF_FIELD_OCCASION_TOOLTIP,
 							),
 							array(
 								'name'		=> 'upsell',
-								'label'		=> PGF_FIELD_UPSELL,
+								'label'		=> RSPEGF_FIELD_UPSELL,
 								'required'	=> 0,
 								'field_type'=> array('text','select','radio','product','option','hidden'),
-								'tooltip'	=> PGF_FIELD_UPSELL_TOOLTIP,
+								'tooltip'	=> RSPEGF_FIELD_UPSELL_TOOLTIP,
 							),
 							array(
 								'name'		=> 'upsellAmt',
-								'label'		=> PGF_FIELD_UPSELLAMT,
+								'label'		=> RSPEGF_FIELD_UPSELLAMT,
 								'required'	=> 0,
 								'field_type'=> array('text','number','product','option','total','hidden'),
-								'tooltip'	=> PGF_FIELD_UPSELLAMT_TOOLTIP,
+								'tooltip'	=> RSPEGF_FIELD_UPSELLAMT_TOOLTIP,
 							)
 						)
 					),
 					array(
 						'name'           => 'condition',
-						'label'          => esc_html(PGF_CL_TITLE),
+						'label'          => esc_html(RSPEGF_CL_TITLE),
 						'type'           => 'feed_condition',
-						'checkbox_label' => esc_html(PGF_CL_CHECK),
-						'instructions'   => esc_html(PGF_CL_INSTRUCT)
+						'checkbox_label' => esc_html(RSPEGF_CL_CHECK),
+						'instructions'   => esc_html(RSPEGF_CL_INSTRUCT)
 					),
 				),
 			),
@@ -353,7 +353,7 @@ class PGF extends GFFeedAddOn {
 
 	public function feed_list_columns() {
 		return array(
-			'feedName'  => esc_html(PGF_FEED_NAME),
+			'feedName'  => esc_html(RSPEGF_FEED_NAME),
 		);
 	}
 	
