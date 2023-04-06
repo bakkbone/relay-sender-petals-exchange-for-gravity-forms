@@ -13,7 +13,7 @@ Integrates the Petals Exchange with Gravity Forms
 
 == Description ==
 
-Send orders via the Petals Exchange using a Gravity Forms form.
+Send orders via the Petals Exchange using a [Gravity Forms](https://rocketgenius.pxf.io/bakkbone) form. _(affiliate link)_
 
 **Recommended for non-customer-facing forms only as this integration transmits orders _directly_ to Petals Network.**
 
@@ -32,7 +32,10 @@ Send orders via the Petals Exchange using a Gravity Forms form.
 3. Activate the plugin through the `Plugins` menu in WordPress
 
 == Frequently Asked Questions ==
+**What plugins do I need?**
+Required:
 
+* [Gravity Forms](https://rocketgenius.pxf.io/bakkbone) (affiliate link)
 
 == Screenshots ==
 

@@ -14,25 +14,25 @@
  * Text Domain: relay-sender-petals-exchange-for-gravity-forms
 **/
 
-define("RSPEGF_EXEC",true);
+define("PGF_EXEC",true);
 
-define("RSPEGF_DEBUG",false);
+define("PGF_DEBUG",false);
 
-define("RSPEGF_FILE",__FILE__);
+define("PGF_FILE",__FILE__);
 
-define("RSPEGF_PATH",dirname(__FILE__));
+define("PGF_PATH",dirname(__FILE__));
 
-define("RSPEGF_URL",plugins_url("/",__FILE__));
+define("PGF_URL",plugins_url("/",__FILE__));
 
-require RSPEGF_PATH . '/incl/localisation.php';
+require PGF_PATH . '/incl/localisation.php';
 
-define( 'RSPEGF_VERSION', '2.0' );
+define( 'PGF_VERSION', '2.0' );
  
 add_filter( 'plugin_action_links_relay-sender-petals-exchange-for-gravity-forms/relay-sender-petals-exchange-for-gravity-forms.php', 'pgf_settings_link', 1, 1 );
 
 function pgf_settings_link( $links ){
-	$url = esc_url( add_query_arg( array( 'page' => 'gf_settings', 'subview' => 'pgf' ), get_admin_url() . 'admin.php' ) );
-	$new_link = array("<a href='$url'>" . RSPEGF_SETTINGS_SHORT . '</a>');
+	$url = add_query_arg( array( 'page' => 'gf_settings', 'subview' => 'pgf' ), get_admin_url() . 'admin.php' );
+	$new_link = array("<a href='$url'>" . PGF_SETTINGS_SHORT . '</a>');
 	return array_merge($new_link, $links);
 }
 
@@ -40,7 +40,7 @@ add_filter( 'plugin_row_meta', 'pgf_meta_links', 10, 2 );
 
 function pgf_meta_links( $links, $file ) {
 
-	if ( plugin_basename( RSPEGF_FILE ) !== $file ) {
+	if ( plugin_basename( PGF_FILE ) !== $file ) {
 		return $links;
 	}
 
@@ -52,16 +52,16 @@ function pgf_meta_links( $links, $file ) {
 			sprintf(
 				$format,
 				'https://docs.bkbn.au/v/pgf/',
-				RSPEGF_HELP_TITLE,
-				RSPEGF_HELP_TITLE
+				PGF_HELP_TITLE,
+				PGF_HELP_TITLE
 			)
 		)
 	);
 }
 
-add_action( 'gform_loaded', array( 'RSPEGF_Init', 'load' ), 6 );
+add_action( 'gform_loaded', array( 'PGF_Init', 'load' ), 6 );
 
-class RSPEGF_Init {
+class PGF_Init {
  
     public static function load() {
  
@@ -71,11 +71,11 @@ class RSPEGF_Init {
  
         require_once( 'incl/core.php' );
  
-        GFAddOn::register( 'RSPEGF' );
+        GFAddOn::register( 'PGF' );
     }
  
 }
  
 function pgf() {
-    return RSPEGF::get_instance();
+    return PGF::get_instance();
 }
