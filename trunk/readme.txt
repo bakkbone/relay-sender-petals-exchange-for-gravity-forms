@@ -3,7 +3,7 @@ Contributors: bakkbone
 Donate link: https://ko-fi.com/bakkbone_scott
 Tags: gravity forms,petals,florist,form,gravity,integrate
 Requires at least: 6.0
-Tested up to: 6.1.1
+Tested up to: 6.2
 Stable tag: 1.0.0
 Requires PHP: 7.4
 License: GNU General Public License (GPL) 3.0
